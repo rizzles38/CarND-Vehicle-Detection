@@ -178,13 +178,6 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
     return imcopy
 
 def all_windows(img):
-    # 32x32 window
-    windows32 = slide_window(img,
-                             x_start_stop=[500, 1280-200],
-                             y_start_stop=[400, 448],
-                             xy_window=(32, 32),
-                             xy_overlap=(0.5, 0.5))
-
     # 64x64 window
     windows64 = slide_window(img,
                              x_start_stop=[500, 1280],
@@ -206,13 +199,12 @@ def all_windows(img):
                               xy_window=(256, 256),
                               xy_overlap=(0.75, 0.75))
 
-    #img = draw_boxes(img, windows32, color=(255, 0, 0), thick=2)
-    #img = draw_boxes(img, windows64, color=(0, 255, 0), thick=2)
-    #img = draw_boxes(img, windows128, color=(0, 0, 255), thick=2)
-    #img = draw_boxes(img, windows256, color=(255, 255, 0), thick=2)
-    #plt.imshow(img)
-    #plt.show()
-    #exit()
+    img = draw_boxes(img, windows64, color=(0, 255, 0), thick=2)
+    img = draw_boxes(img, windows128, color=(0, 0, 255), thick=2)
+    img = draw_boxes(img, windows256, color=(255, 255, 0), thick=2)
+    plt.imshow(img)
+    plt.show()
+    exit()
 
     return windows64 + windows128 + windows256
 

@@ -7,7 +7,7 @@
 [//]: # (Image References)
 [image1]: ./examples/car_not_car.png
 [image2]: ./examples/HOG_example.png
-[image3]: ./examples/sliding_windows.jpg
+[image3]: ./examples/sliding_windows.png
 [image4]: ./examples/sliding_window.jpg
 [image5]: ./examples/bboxes_and_heat.png
 [image6]: ./examples/labels_map.png
@@ -56,21 +56,21 @@ represent too specific of a shape.
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using sklearn. The data preparation and training functions
+I trained a linear SVM using sklearn.  The data preparation and training functions
 are in `utils.py`, named `prep_training_data` and `train_classifier` respectively.
 
 I concatented spatial binning features, color histogram features, and HOG
-features all into one large feature vector of 8460 features. All of these features
-were in the YCrCb color space. After making sure the data was normalized with
+features all into one large feature vector of 8460 features.  All of these features
+were in the YCrCb color space.  After making sure the data was normalized with
 `StandardScaler`, I split and shuffled the data into a training set of 80% of
 the images and a test set of 20% of the images.
 
 The main training happens in `train.py`, which calls the functions to prep the
-data and train the classifier. Depending on random initialization, the linear
+data and train the classifier.  Depending on random initialization, the linear
 SVM achieves between 99.3% to 99.5% accuracy on the test set.
 
 Finally, `train.py` saves the classifier and `StandardScaler` into a pickle file
-so I can just load the classifier and start using it when I run detection. I only
+so I can just load the classifier and start using it when I run detection.  I only
 need to re-run the training step if I want to make a change to how the classifier
 is trained.
 
@@ -78,7 +78,26 @@ is trained.
 
 ####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+The sliding window generation is done in `utils.py` in the `all_windows` function,
+which calls the `sliding_window` function provided from the lectures.  At first
+I started with four different scales: 32x32, 64x64, 128x128, and 256x256, but
+I ended up dropping the 32x32 size since realistically it was too small to help
+much.
+
+I focused the sliding windows at the horizon and below.  The smaller 64x64 windows
+stay near the horizon since smaller cars will be further away and closer to the
+horizon, whereas the 256x256 windows generally focus all the way to the bottom
+of the image.
+
+One optimization I made was to only search in the the lane in front of the car
+and to the right.  Since the car is in the far left lane, there's no reason to
+search the far left side of the image for detections.
+
+I originally used an overlap of 0.5, but I had one trouble spot where the white
+car sat in a particularly unlucky spot straddling a window, so it wasn't in any
+window enough to be detected for several seconds.  I fixed this by overlapping
+the windows by 0.75 to better increase the chance that a car would be mostly
+inside a window for detection.
 
 ![alt text][image3]
 
