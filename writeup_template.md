@@ -8,7 +8,7 @@
 [image1]: ./examples/car_not_car.png
 [image2]: ./examples/HOG_example.png
 [image3]: ./examples/sliding_windows.png
-[image4]: ./examples/sliding_window.jpg
+[image4]: ./examples/sliding_window.png
 [image5]: ./examples/bboxes_and_heat.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
@@ -103,7 +103,9 @@ inside a window for detection.
 
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on three scales using YCrCb 3-channel HOG features plus
+spatially binned YCrCb and histograms of YCrCb in the feature vector, which
+provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 ---
@@ -111,7 +113,7 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output.mp4)
 
 
 ####2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.

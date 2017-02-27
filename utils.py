@@ -324,5 +324,40 @@ def output_plots():
 
     plt.show()
 
+    classifier, normalizer = load_classifier()
+
+    test1 = cv2.imread("test_images/test1.jpg")
+    test1 = cv2.cvtColor(test1, cv2.COLOR_BGR2RGB)
+    windows = all_windows(test1)
+    boxes = search_windows(test1, windows, classifier, normalizer)
+    test1 = draw_boxes(test1, boxes, color=(255, 0, 0), thick=2)
+
+    test2 = cv2.imread("test_images/test2.jpg")
+    test2 = cv2.cvtColor(test2, cv2.COLOR_BGR2RGB)
+    boxes = search_windows(test2, windows, classifier, normalizer)
+    test2 = draw_boxes(test2, boxes, color=(255, 0, 0), thick=2)
+
+    test3 = cv2.imread("test_images/test3.jpg")
+    test3 = cv2.cvtColor(test3, cv2.COLOR_BGR2RGB)
+    boxes = search_windows(test3, windows, classifier, normalizer)
+    test3 = draw_boxes(test3, boxes, color=(255, 0, 0), thick=2)
+
+    test4 = cv2.imread("test_images/test4.jpg")
+    test4 = cv2.cvtColor(test4, cv2.COLOR_BGR2RGB)
+    boxes = search_windows(test4, windows, classifier, normalizer)
+    test4 = draw_boxes(test4, boxes, color=(255, 0, 0), thick=2)
+
+    fig, ax = plt.subplots(2, 2, sharex="col", sharey="row")
+    ax[0, 0].imshow(test1)
+    ax[0, 0].set_title("test1.jpg")
+    ax[0, 1].imshow(test2)
+    ax[0, 1].set_title("test2.jpg")
+    ax[1, 0].imshow(test3)
+    ax[1, 0].set_title("test3.jpg")
+    ax[1, 1].imshow(test4)
+    ax[1, 1].set_title("test4.jpg")
+
+    plt.show()
+
 if __name__ == "__main__":
     output_plots()
