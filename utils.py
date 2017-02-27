@@ -270,33 +270,21 @@ def output_plots():
     print("Found {} cars.".format(len(cars)))
     print("Found {} not cars.".format(len(not_cars)))
 
-    car = cv2.imread(cars[np.random.randint(0, len(cars))])
+    car = cv2.imread(cars[0])
     car = cv2.cvtColor(car, cv2.COLOR_BGR2RGB)
-    not_car = cv2.imread(not_cars[np.random.randint(0, len(not_cars))])
+    not_car = cv2.imread(not_cars[0])
     not_car = cv2.cvtColor(not_car, cv2.COLOR_BGR2RGB)
-
-    car_hog_feat, car_hog_img = get_hog_features(car, vis=True)
-    not_car_hog_feat, not_car_hog_img = get_hog_features(not_car, vis=True)
 
     fig = plt.figure()
 
-    plt.subplot(221)
+    plt.subplot(121)
     plt.imshow(car)
     plt.title("Example Car")
 
-    plt.subplot(222)
-    plt.imshow(car_hog_img, cmap="gray")
-    plt.title("Car HOG Features")
-
-    plt.subplot(223)
+    plt.subplot(122)
     plt.imshow(not_car)
     plt.title("Example Not Car")
 
-    plt.subplot(224)
-    plt.imshow(not_car_hog_img, cmap="gray")
-    plt.title("Not Car HOG Features")
-
-    # TODO: write this plot out?
     plt.show()
 
 if __name__ == "__main__":
