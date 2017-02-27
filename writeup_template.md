@@ -56,7 +56,23 @@ represent too specific of a shape.
 
 ####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+I trained a linear SVM using sklearn. The data preparation and training functions
+are in `utils.py`, named `prep_training_data` and `train_classifier` respectively.
+
+I concatented spatial binning features, color histogram features, and HOG
+features all into one large feature vector of 8460 features. All of these features
+were in the YCrCb color space. After making sure the data was normalized with
+`StandardScaler`, I split and shuffled the data into a training set of 80% of
+the images and a test set of 20% of the images.
+
+The main training happens in `train.py`, which calls the functions to prep the
+data and train the classifier. Depending on random initialization, the linear
+SVM achieves between 99.3% to 99.5% accuracy on the test set.
+
+Finally, `train.py` saves the classifier and `StandardScaler` into a pickle file
+so I can just load the classifier and start using it when I run detection. I only
+need to re-run the training step if I want to make a change to how the classifier
+is trained.
 
 ###Sliding Window Search
 
