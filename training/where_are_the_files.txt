@@ -1,0 +1,2 @@
+I unzipped the training sets here. Not committing them to the repo because
+they're huge.
