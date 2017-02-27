@@ -199,12 +199,13 @@ def all_windows(img):
                               xy_window=(256, 256),
                               xy_overlap=(0.75, 0.75))
 
-    img = draw_boxes(img, windows64, color=(0, 255, 0), thick=2)
-    img = draw_boxes(img, windows128, color=(0, 0, 255), thick=2)
-    img = draw_boxes(img, windows256, color=(255, 255, 0), thick=2)
-    plt.imshow(img)
-    plt.show()
-    exit()
+    # Uncomment to draw all sliding windows
+    #img = draw_boxes(img, windows64, color=(0, 255, 0), thick=2)
+    #img = draw_boxes(img, windows128, color=(0, 0, 255), thick=2)
+    #img = draw_boxes(img, windows256, color=(255, 255, 0), thick=2)
+    #plt.imshow(img)
+    #plt.show()
+    #exit()
 
     return windows64 + windows128 + windows256
 
