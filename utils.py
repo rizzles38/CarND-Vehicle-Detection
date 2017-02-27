@@ -270,9 +270,9 @@ def output_plots():
     print("Found {} cars.".format(len(cars)))
     print("Found {} not cars.".format(len(not_cars)))
 
-    car = cv2.imread(cars[0])
+    car = cv2.imread(cars[5000])
     car = cv2.cvtColor(car, cv2.COLOR_BGR2RGB)
-    not_car = cv2.imread(not_cars[0])
+    not_car = cv2.imread(not_cars[5000])
     not_car = cv2.cvtColor(not_car, cv2.COLOR_BGR2RGB)
 
     fig = plt.figure()
@@ -284,6 +284,50 @@ def output_plots():
     plt.subplot(122)
     plt.imshow(not_car)
     plt.title("Example Not Car")
+
+    plt.show()
+
+    fig, ax = plt.subplots(3, 4, sharex="col", sharey="row")
+
+    car_ycrcb = cv2.cvtColor(car, cv2.COLOR_RGB2YCrCb)
+
+    ax[0, 0].imshow(car_ycrcb[:,:,0], cmap="gray")
+    ax[0, 0].set_title("Car Y Channel")
+    ax[1, 0].imshow(car_ycrcb[:,:,1], cmap="gray")
+    ax[1, 0].set_title("Car Cr Channel")
+    ax[2, 0].imshow(car_ycrcb[:,:,2], cmap="gray")
+    ax[2, 0].set_title("Car Cb Channel")
+
+    not_car_ycrcb = cv2.cvtColor(not_car, cv2.COLOR_RGB2YCrCb)
+
+    ax[0, 2].imshow(not_car_ycrcb[:,:,0], cmap="gray")
+    ax[0, 2].set_title("Not Car Y Channel")
+    ax[1, 2].imshow(not_car_ycrcb[:,:,1], cmap="gray")
+    ax[1, 2].set_title("Not Car Cr Channel")
+    ax[2, 2].imshow(not_car_ycrcb[:,:,2], cmap="gray")
+    ax[2, 2].set_title("Not Car Cb Channel")
+
+    _, car_hog_y = compute_hog(car_ycrcb[:,:,0], vis=True)
+    _, car_hog_cr = compute_hog(car_ycrcb[:,:,1], vis=True)
+    _, car_hog_cb = compute_hog(car_ycrcb[:,:,2], vis=True)
+
+    ax[0, 1].imshow(car_hog_y, cmap="gray")
+    ax[0, 1].set_title("Car HOG Y Channel")
+    ax[1, 1].imshow(car_hog_cr, cmap="gray")
+    ax[1, 1].set_title("Car HOG Cr Channel")
+    ax[2, 1].imshow(car_hog_cb, cmap="gray")
+    ax[2, 1].set_title("Car HOG Cb Channel")
+
+    _, not_car_hog_y = compute_hog(not_car_ycrcb[:,:,0], vis=True)
+    _, not_car_hog_cr = compute_hog(not_car_ycrcb[:,:,1], vis=True)
+    _, not_car_hog_cb = compute_hog(not_car_ycrcb[:,:,2], vis=True)
+
+    ax[0, 3].imshow(not_car_hog_y, cmap="gray")
+    ax[0, 3].set_title("Not Car HOG Y Channel")
+    ax[1, 3].imshow(not_car_hog_cr, cmap="gray")
+    ax[1, 3].set_title("Not Car HOG Cr Channel")
+    ax[2, 3].imshow(not_car_hog_cb, cmap="gray")
+    ax[2, 3].set_title("Not Car HOG Cb Channel")
 
     plt.show()
 
